@@ -1,0 +1,36 @@
+# https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  my-web
+  labels:
+    app.kubernetes.io/name: load-balancer-example
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: load-balancer-example
+  replicas: 4
+  template:
+    metadata:
+      labels:
+       app.kubernetes.io/name: load-balancer-example
+    spec:
+      # initContainers:
+        # Init containers are exactly like regular containers, except:
+          # - Init containers always run to completion.
+          # - Each init container must complete successfully before the next one starts.
+      containers:
+      - name:  my-web
+        image:  docker.io/lovetha/first-cloudnat-web:latest
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+          limits:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - containerPort:  80
+          name:  my-web
+      restartPolicy: Always
