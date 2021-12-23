@@ -9,7 +9,7 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: load-balancer-example
-  replicas: 8
+  replicas: 4
   template:
     metadata:
       labels:
